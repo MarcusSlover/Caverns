@@ -8,6 +8,10 @@ import java.util.function.Consumer;
 public class TaskUtil {
     private static final Caverns CAVERNS = Caverns.getInstance();
 
+    public static void runTimer(Runnable runnable, long seconds) {
+        Bukkit.getScheduler().runTaskTimer(CAVERNS, runnable, 0L, seconds);
+    }
+
     public static void runAsync(Runnable runnable) {
         Bukkit.getScheduler().runTaskAsynchronously(CAVERNS, runnable);
     }

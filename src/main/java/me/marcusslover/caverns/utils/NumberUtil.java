@@ -3,8 +3,11 @@ package me.marcusslover.caverns.utils;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
+import java.util.Random;
 
 public class NumberUtil {
+    public static final Random RANDOM = new Random();
+
     public static String toFancyNumber(int num) {
         return NumberFormat.getInstance(Locale.US).format((Integer) num);
     }
@@ -92,5 +95,9 @@ public class NumberUtil {
             input -= 1;
         }
         return s.toString();
+    }
+
+    public static int getRandomBetween(int min, int max) {
+        return RANDOM.nextInt(max - min) + min;
     }
 }

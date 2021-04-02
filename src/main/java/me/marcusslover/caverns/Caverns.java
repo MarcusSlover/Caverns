@@ -2,6 +2,7 @@ package me.marcusslover.caverns;
 
 import me.marcusslover.caverns.data.DataListener;
 import me.marcusslover.caverns.data.DataManager;
+import me.marcusslover.caverns.event.EventManager;
 import me.marcusslover.caverns.sidebar.SidebarListener;
 import me.marcusslover.caverns.utils.IPluginLoader;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,6 +18,8 @@ public final class Caverns extends JavaPlugin implements IPluginLoader {
 
         this.addListener(new DataListener());
         this.addListener(new SidebarListener());
+
+        EventManager.startTimer();
     }
 
     @Override
