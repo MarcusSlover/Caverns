@@ -1,0 +1,6 @@
+name: Caverns
+version: ${project.version}
+main: me.marcusslover.caverns.Caverns
+api-version: 1.16
+authors: [ MarcusSlover ]
+description: A plugin based on one of the plots from a Minecraft server called DiamondFire. Originally created by sludsVEVO.
