@@ -26,6 +26,10 @@ public class Sidebar implements IColorable {
         uniqueNumber += 1;
     }
 
+    public Sidebar addEmpty() {
+        return this.addLine("", "");
+    }
+
     public Sidebar addLine(String prefix, String suffix) {
         int size = getSize();
         Team team = scoreboard.registerNewTeam("caverns_" + size);

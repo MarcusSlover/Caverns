@@ -4,8 +4,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import me.marcusslover.caverns.Caverns;
 import me.marcusslover.caverns.utils.FileUtil;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,6 +53,10 @@ public class DataManager {
         players.keySet().forEach(this::savePlayer);
     }
 
+    public PlayerContainer get(UUID uuid) {
+        return players.get(uuid);
+    }
+
     public Map<UUID, PlayerContainer> getPlayers() {
         return players;
     }
@@ -62,4 +64,5 @@ public class DataManager {
     public static DataManager getInstance() {
         return instance == null ? new DataManager() : instance;
     }
+
 }
