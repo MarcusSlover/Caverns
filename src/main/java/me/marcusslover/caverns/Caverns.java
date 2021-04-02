@@ -1,17 +1,30 @@
 package me.marcusslover.caverns;
 
+import me.marcusslover.caverns.data.DataListener;
+import me.marcusslover.caverns.data.DataManager;
+import me.marcusslover.caverns.sidebar.SidebarListener;
+import me.marcusslover.caverns.utils.IPluginLoader;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Caverns extends JavaPlugin {
+public final class Caverns extends JavaPlugin implements IPluginLoader {
+    private static Caverns instance;
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        instance = this;
+        this.createPluginFolder();
+        this.createDirectory(getDataFolder(), "players");
 
+        this.addListener(new DataListener());
+        this.addListener(new SidebarListener());
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        DataManager.getInstance().savePlayers();
+    }
+
+    public static Caverns getInstance() {
+        return instance;
     }
 }
