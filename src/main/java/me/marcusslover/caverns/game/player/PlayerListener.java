@@ -40,7 +40,7 @@ public class PlayerListener implements Listener {
         SidebarManager.getInstance().removeTablist(player);
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.HIGH)
     public void onLoad(DataLoadEvent event) {
         Player player = event.getPlayer();
         PlayerContainer container = event.getPlayerContainer();
