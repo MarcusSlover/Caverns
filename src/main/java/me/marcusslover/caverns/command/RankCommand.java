@@ -16,7 +16,7 @@ public class RankCommand implements ICommand {
                 if (args.length == 2) {
                     Player target = Bukkit.getPlayer(args[0]);
                     if (target == null) {
-                        ChatUtil.error(player, "Could not find the target!!");
+                        ChatUtil.error(player, "Could not find the target!");
                         return;
                     }
                     PlayerContainer container = PlayerContainer.get(target);
