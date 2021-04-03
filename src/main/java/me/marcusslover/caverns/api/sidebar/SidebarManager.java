@@ -1,16 +1,65 @@
 package me.marcusslover.caverns.api.sidebar;
 
 import me.marcusslover.caverns.api.data.PlayerContainer;
+import me.marcusslover.caverns.api.data.Rank;
+import me.marcusslover.caverns.api.data.RankManager;
 import me.marcusslover.caverns.api.event.EventManager;
 import me.marcusslover.caverns.api.utils.NumberUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 public class SidebarManager {
     private static SidebarManager instance;
 
     private SidebarManager() {
         instance = this;
+    }
+
+    public void removeTablist(Player player) {
+        PlayerContainer container = PlayerContainer.get(player);
+        if (container == null) {
+            return;
+        }
+
+        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            Sidebar sidebar = Sidebar.getByPlayer(onlinePlayer);
+            if (sidebar == null) {
+                continue;
+            }
+            Scoreboard scoreboard = sidebar.scoreboard;
+            Team team = scoreboard.getTeam(player.getName());
+            if (team != null) {
+                team.unregister();
+            }
+        }
+    }
+
+    public void updateTablist(Player player) {
+        PlayerContainer container = PlayerContainer.get(player);
+        if (container == null) {
+            return;
+        }
+
+        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            Sidebar sidebar = Sidebar.getByPlayer(onlinePlayer);
+            if (sidebar == null) {
+                continue;
+            }
+
+            Scoreboard scoreboard = sidebar.scoreboard;
+            Team team = scoreboard.getTeam(player.getName());
+            if (team == null) {
+                scoreboard.registerNewTeam(player.getName());
+            }
+            String rank = container.getString("rank", "player");
+            Rank rank1 = RankManager.get(rank);
+            team.setPrefix(rank1.chatColor + "«" + rank1.prefix + rank1.chatColor + "»");
+            if (!team.hasEntry(player.getName())) {
+                team.addEntry(player.getName());
+            }
+        }
     }
 
     public void createSidebar(Player player, PlayerContainer container) {
@@ -47,4 +96,5 @@ public class SidebarManager {
     public static SidebarManager getInstance() {
         return instance == null ? new SidebarManager() : instance;
     }
+
 }

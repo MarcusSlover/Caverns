@@ -18,6 +18,7 @@ import java.util.List;
 public class PlayerMenu implements IMenu {
     private static final Item EMPTY = new Item(Material.BLACK_STAINED_GLASS_PANE, 1, "&r");
 
+    @Override
     public void openMenu(Player player) {
         PlayerContainer container = PlayerContainer.get(player);
         if (container == null) {

@@ -16,8 +16,8 @@ public class Sidebar implements IColorable {
     private static final ScoreboardManager SCOREBOARD_MANAGER = Bukkit.getScoreboardManager();
     private static long uniqueNumber = 0L;
 
-    private final Scoreboard scoreboard;
-    private final Objective objective;
+    public final Scoreboard scoreboard;
+    public final Objective objective;
 
     public Sidebar(String title) {
         this.scoreboard = SCOREBOARD_MANAGER.getNewScoreboard();
@@ -58,12 +58,21 @@ public class Sidebar implements IColorable {
 
     public void clearFields() {
         for (Team team : scoreboard.getTeams()) {
-            team.unregister();
+            if (team.getName().startsWith("caverns_")) {
+                team.unregister();
+            }
         }
     }
 
     public int getSize() {
-        return scoreboard.getTeams().size();
+        int size = 0;
+        for (Team team : scoreboard.getTeams()) {
+            if (!team.getName().startsWith("caverns_")) {
+                continue;
+            }
+            size += 1;
+        }
+        return size;
     }
 
     public void show(Player player) {

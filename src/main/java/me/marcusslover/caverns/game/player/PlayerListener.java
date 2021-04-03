@@ -5,12 +5,15 @@ import me.marcusslover.caverns.api.data.PlayerContainer;
 import me.marcusslover.caverns.api.data.Rank;
 import me.marcusslover.caverns.api.data.RankManager;
 import me.marcusslover.caverns.api.item.Item;
+import me.marcusslover.caverns.api.menu.IMenu;
+import me.marcusslover.caverns.api.sidebar.SidebarManager;
 import me.marcusslover.caverns.api.utils.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -26,12 +29,15 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         event.setJoinMessage(""); // Get rid of the join message
+        Player player = event.getPlayer();
+        player.getInventory().setItem(8, MENU.clone().bukkitItem());
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.LOW)
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         event.setQuitMessage(ColorUtil.toColor("&c← &*» &f" + player.getName() + " left."));
+        SidebarManager.getInstance().removeTablist(player);
     }
 
     @EventHandler
@@ -58,16 +64,22 @@ public class PlayerListener implements Listener {
                 p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0f, 1.0f);
             }
         }
+        SidebarManager.getInstance().updateTablist(player);
     }
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        event.setCancelled(!event.getPlayer().isOp());
         Action action = event.getAction();
+
         if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
             Item item = new Item(event.getItem());
             if (item.isValid()) {
                 if (item.hasTag("menu")) {
-
+                    IMenu.open(player, PlayerMenu.class);
+                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, 1.0f, 1.0f);
+                    event.setCancelled(true);
                 }
             }
         }
@@ -100,6 +112,11 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onDrop(PlayerDropItemEvent event) {
+        event.setCancelled(!event.getPlayer().isOp());
+    }
+
+    @EventHandler
+    public void onSwapHands(PlayerSwapHandItemsEvent event) {
         event.setCancelled(!event.getPlayer().isOp());
     }
 

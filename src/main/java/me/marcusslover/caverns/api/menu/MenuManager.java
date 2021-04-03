@@ -7,11 +7,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MenuManager {
     private static MenuManager instance;
+    private final List<IMenu> menuList;
 
     private MenuManager() {
         instance = this;
+        this.menuList = new ArrayList<>();
     }
 
     public void addMenu(IMenu menu) {
@@ -20,6 +25,8 @@ public class MenuManager {
         if (annotationsByType.length == 0) {
             return;
         }
+        menuList.add(menu);
+
         MenuDetails menuDetails = annotationsByType[0];
         String name = menuDetails.name();
         boolean cancelled = menuDetails.cancelled();
@@ -44,6 +51,10 @@ public class MenuManager {
                 }
             }
         });
+    }
+
+    public List<IMenu> getMenuList() {
+        return menuList;
     }
 
     public static MenuManager getInstance() {
