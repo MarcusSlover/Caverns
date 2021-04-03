@@ -28,6 +28,7 @@ public class EventManager implements IManager<Event> {
         instance = this;
         this.events = new ArrayList<>();
         this.happening = false;
+        this.initialize();
     }
 
     public static String getSidebarText() {

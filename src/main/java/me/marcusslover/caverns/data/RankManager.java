@@ -12,6 +12,7 @@ public class RankManager implements IManager<Rank> {
     private RankManager() {
         instance = this;
         this.ranks = new ArrayList<>();
+        this.initialize();
     }
 
     public static Rank get(String rank) {
