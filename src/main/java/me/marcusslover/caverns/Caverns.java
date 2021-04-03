@@ -1,12 +1,12 @@
 package me.marcusslover.caverns;
 
-import me.marcusslover.caverns.command.RankCommand;
-import me.marcusslover.caverns.data.DataListener;
-import me.marcusslover.caverns.data.DataManager;
-import me.marcusslover.caverns.event.EventManager;
-import me.marcusslover.caverns.player.PlayerListener;
-import me.marcusslover.caverns.sidebar.SidebarListener;
-import me.marcusslover.caverns.utils.IPluginLoader;
+import me.marcusslover.caverns.api.data.DataListener;
+import me.marcusslover.caverns.api.data.DataManager;
+import me.marcusslover.caverns.api.event.EventManager;
+import me.marcusslover.caverns.api.sidebar.SidebarListener;
+import me.marcusslover.caverns.api.utils.IPluginLoader;
+import me.marcusslover.caverns.game.PlayerListener;
+import me.marcusslover.caverns.game.command.RankCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Caverns extends JavaPlugin implements IPluginLoader {
