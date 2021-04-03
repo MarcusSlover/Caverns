@@ -20,10 +20,10 @@ public class SidebarManager {
         sidebar.addEmpty();
         sidebar.addLine("&e☀ &fDay", " &7(6:00)");
         sidebar.addEmpty();
-        sidebar.addLine("&7◆ &fPlayers:", "&e"+Bukkit.getOnlinePlayers().size());
-        sidebar.addLine("&7◆ &fCoins:", "&e"+ NumberUtil.toFancyNumber(coins) + "&6⛁");
+        sidebar.addLine("&7◆ &fPlayers:", " &e"+Bukkit.getOnlinePlayers().size());
+        sidebar.addLine("&7◆ &fCoins:", " &e"+ NumberUtil.toFancyNumber(coins) + "&6⛁");
         sidebar.addEmpty();
-        sidebar.addLine("&5⇒ &fEvent: ", EventManager.getSidebarText());
+        sidebar.addLine("&d⇒ &fEvent: ", EventManager.getSidebarText());
         sidebar.addEmpty();
 
         sidebar.show(player);
