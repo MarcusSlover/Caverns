@@ -1,7 +1,10 @@
 package me.marcusslover.caverns.api.item;
 
+import me.marcusslover.caverns.api.utils.ColorUtil;
 import me.marcusslover.caverns.api.utils.IColorable;
+import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -9,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Item implements IColorable {
-    ItemStack itemStack;
+    ItemStack itemStack = null;
 
     public Item(Material material) {
         this(material, 0);
@@ -53,6 +56,37 @@ public class Item implements IColorable {
 
     public ItemMeta getItemMeta() {
         return this.itemStack.getItemMeta();
+    }
+
+    public boolean isNamed(String name) {
+        if (!isValid()) return false;
+        if (!itemStack.hasItemMeta() && itemStack.getItemMeta() == null) return false;
+
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        if (!itemMeta.hasDisplayName()) {
+            return false;
+        }
+        String itemName = itemMeta.getDisplayName();
+        return itemName.equalsIgnoreCase(ColorUtil.toColor(name));
+    }
+
+    public boolean hasTag(String key) {
+        if (!isValid()) return false;
+        net.minecraft.server.v1_16_R3.ItemStack itemStack = CraftItemStack.asNMSCopy(this.itemStack);
+        NBTTagCompound tag = itemStack.getTag();
+        if (tag == null) return false;
+
+        return tag.hasKey(key);
+    }
+
+    public NBTTagCompound getTag() {
+        if (!isValid()) return null;
+        net.minecraft.server.v1_16_R3.ItemStack itemStack = CraftItemStack.asNMSCopy(this.itemStack);
+        return itemStack.getTag();
+    }
+
+    public boolean isValid() {
+        return itemStack != null && itemStack.getType() != Material.AIR;
     }
 
     public Item(ItemStack itemStack) {
