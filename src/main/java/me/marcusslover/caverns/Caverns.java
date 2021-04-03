@@ -5,8 +5,9 @@ import me.marcusslover.caverns.api.data.DataManager;
 import me.marcusslover.caverns.api.event.EventManager;
 import me.marcusslover.caverns.api.sidebar.SidebarListener;
 import me.marcusslover.caverns.api.utils.IPluginLoader;
-import me.marcusslover.caverns.game.PlayerListener;
 import me.marcusslover.caverns.game.command.RankCommand;
+import me.marcusslover.caverns.game.player.PlayerListener;
+import me.marcusslover.caverns.game.player.PlayerMenu;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Caverns extends JavaPlugin implements IPluginLoader {
@@ -22,6 +23,9 @@ public final class Caverns extends JavaPlugin implements IPluginLoader {
         this.addListener(new DataListener());
         this.addListener(new SidebarListener());
         this.addListener(new PlayerListener());
+
+        // Menus
+        this.addMenu(new PlayerMenu());
 
         // Commands
         this.addCommand(new RankCommand());

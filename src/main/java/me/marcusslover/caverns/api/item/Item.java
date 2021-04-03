@@ -5,13 +5,15 @@ import me.marcusslover.caverns.api.utils.IColorable;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Item implements IColorable {
+public class Item implements IColorable, Cloneable {
     ItemStack itemStack = null;
 
     public Item(Material material) {
@@ -22,10 +24,19 @@ public class Item implements IColorable {
         this(new ItemStack(material, amount));
     }
 
+    public Item(Material material, int amount, String name) {
+        this(new ItemStack(material, amount));
+        this.setName(name);
+    }
+
     public Item(Material material, int amount, String name, List<String> lore) {
         this(new ItemStack(material, amount));
         this.setName(name);
         this.setLore(lore);
+    }
+
+    public Item(ItemStack itemStack) {
+        this.itemStack = itemStack;
     }
 
     public Item setLore(String... lore) {
@@ -58,6 +69,16 @@ public class Item implements IColorable {
         return this.itemStack.getItemMeta();
     }
 
+    public Item setSkull(Player player) {
+        ItemMeta itemMeta = getItemMeta();
+        if (itemMeta instanceof SkullMeta) {
+            SkullMeta meta = (SkullMeta) itemMeta;
+            meta.setOwningPlayer(player);
+            setItemMeta(meta);
+        }
+        return this;
+    }
+
     public boolean isNamed(String name) {
         if (!isValid()) return false;
         if (!itemStack.hasItemMeta() && itemStack.getItemMeta() == null) return false;
@@ -79,6 +100,19 @@ public class Item implements IColorable {
         return tag.hasKey(key);
     }
 
+    public Item setTag(NBTTagCompound nbtTagCompound) {
+        net.minecraft.server.v1_16_R3.ItemStack itemStack = CraftItemStack.asNMSCopy(this.itemStack);
+        itemStack.setTag(nbtTagCompound);
+        this.itemStack = CraftItemStack.asBukkitCopy(itemStack);
+        return this;
+    }
+
+    public Item withTag(String key, boolean b) {
+        NBTTagCompound tag = getTag();
+        tag.setBoolean(key, b);
+        return setTag(tag);
+    }
+
     public NBTTagCompound getTag() {
         if (!isValid()) return null;
         net.minecraft.server.v1_16_R3.ItemStack itemStack = CraftItemStack.asNMSCopy(this.itemStack);
@@ -89,11 +123,12 @@ public class Item implements IColorable {
         return itemStack != null && itemStack.getType() != Material.AIR;
     }
 
-    public Item(ItemStack itemStack) {
-        this.itemStack = itemStack;
-    }
-
     public ItemStack bukkitItem() {
         return itemStack;
     }
+    @Override
+    public Item clone() {
+        return new Item(this.itemStack.clone());
+    }
+
 }

@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Command {
+public @interface CommandDetails {
     String label();
     String permission() default "";
     String[] aliases() default {};

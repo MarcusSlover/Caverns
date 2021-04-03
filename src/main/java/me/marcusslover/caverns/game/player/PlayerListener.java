@@ -1,24 +1,27 @@
-package me.marcusslover.caverns.game;
+package me.marcusslover.caverns.game.player;
 
 import me.marcusslover.caverns.api.data.DataLoadEvent;
 import me.marcusslover.caverns.api.data.PlayerContainer;
 import me.marcusslover.caverns.api.data.Rank;
 import me.marcusslover.caverns.api.data.RankManager;
+import me.marcusslover.caverns.api.item.Item;
 import me.marcusslover.caverns.api.utils.ColorUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 
 public class PlayerListener implements Listener {
+
+    public static final Item MENU = new Item(Material.FLINT, 1, "&8◇ &7Menu &6◇")
+            .withTag("menu", true);
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
@@ -53,6 +56,19 @@ public class PlayerListener implements Listener {
             p.sendMessage(message);
             if (isFirstJoin) {
                 p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0f, 1.0f);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInteract(PlayerInteractEvent event) {
+        Action action = event.getAction();
+        if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
+            Item item = new Item(event.getItem());
+            if (item.isValid()) {
+                if (item.hasTag("menu")) {
+
+                }
             }
         }
     }

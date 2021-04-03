@@ -3,6 +3,8 @@ package me.marcusslover.caverns.api.utils;
 import me.marcusslover.caverns.Caverns;
 import me.marcusslover.caverns.api.command.CommandManager;
 import me.marcusslover.caverns.api.command.ICommand;
+import me.marcusslover.caverns.api.menu.IMenu;
+import me.marcusslover.caverns.api.menu.MenuManager;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
@@ -11,6 +13,10 @@ import java.io.File;
 public interface IPluginLoader {
     default void addListener(Listener listener) {
         Bukkit.getPluginManager().registerEvents(listener, Caverns.getInstance());
+    }
+
+    default void addMenu(IMenu menu) {
+        MenuManager.getInstance().addMenu(menu);
     }
 
     default void addCommand(ICommand iCommand) {

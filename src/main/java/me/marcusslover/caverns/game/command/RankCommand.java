@@ -1,14 +1,14 @@
 package me.marcusslover.caverns.game.command;
 
-import me.marcusslover.caverns.api.command.Command;
 import me.marcusslover.caverns.api.command.CommandContext;
+import me.marcusslover.caverns.api.command.CommandDetails;
 import me.marcusslover.caverns.api.command.ICommand;
 import me.marcusslover.caverns.api.data.PlayerContainer;
 import me.marcusslover.caverns.api.utils.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-@Command(label = "rank")
+@CommandDetails(label = "rank")
 public class RankCommand implements ICommand {
 
     @Override

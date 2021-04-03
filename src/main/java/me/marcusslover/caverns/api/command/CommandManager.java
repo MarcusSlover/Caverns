@@ -18,15 +18,15 @@ public class CommandManager {
 
     public void addCommand(ICommand command) {
         Class<? extends ICommand> aClass = command.getClass();
-        Command[] annotationsByType = aClass.getAnnotationsByType(Command.class);
+        CommandDetails[] annotationsByType = aClass.getAnnotationsByType(CommandDetails.class);
         if (annotationsByType.length == 0) {
             return;
         }
-        Command commandData = annotationsByType[0];
-        String label = commandData.label();
-        String[] aliases = commandData.aliases();
-        String permission = commandData.permission();
-        String description = commandData.description();
+        CommandDetails commandDetailsData = annotationsByType[0];
+        String label = commandDetailsData.label();
+        String[] aliases = commandDetailsData.aliases();
+        String permission = commandDetailsData.permission();
+        String description = commandDetailsData.description();
 
         org.bukkit.command.Command cmd = new org.bukkit.command.Command(label) {
             @Override
