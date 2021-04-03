@@ -28,9 +28,9 @@ public class RankManager implements IManager<Rank> {
     @Override
     public void initialize() {
         this.register(new Rank("dev", "%hex(#B96AC9)☽", "%hex(#B96AC9)"));
-        this.register(new Rank("credits", "%hex(#17B890)⭐", "%hex(#17B890)"));
-        this.register(new Rank("friend", "%hex(#9AE19D)✔", "%hex(#9AE19D)"));
-        this.register(new Rank("player", "%hex(#FBF5F3)◇", "%hex(#FBF5F3)"));
+        this.register(new Rank("credits", "%hex(#3dfcff)⭐", "%hex(#8cfdff)"));
+        this.register(new Rank("friend", "%hex(#c7ff42)✔", "%hex(#dbff87)"));
+        this.register(new Rank("player", "%hex(#dcf4f5)◇", "%hex(#dcf4f5)"));
     }
 
     @Override
