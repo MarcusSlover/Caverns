@@ -9,7 +9,7 @@ public class TaskUtil {
     private static final Caverns CAVERNS = Caverns.getInstance();
 
     public static void runTimer(Runnable runnable, long seconds) {
-        Bukkit.getScheduler().runTaskTimer(CAVERNS, runnable, 0L, seconds);
+        Bukkit.getScheduler().runTaskTimer(CAVERNS, runnable, 0L, seconds * 20L);
     }
 
     public static void runAsync(Runnable runnable) {
