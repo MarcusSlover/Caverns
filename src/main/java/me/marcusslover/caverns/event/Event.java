@@ -19,6 +19,8 @@ public abstract class Event implements IColorable {
         if (timer <= 0) {
             this.onEnd();
             EVENT_MANAGER.stopEvent(this);
+        } else {
+            EVENT_MANAGER.bossBar.setProgress(timer * 100.0d / 60.0d);
         }
     }
 

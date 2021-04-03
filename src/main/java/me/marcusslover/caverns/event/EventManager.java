@@ -54,7 +54,6 @@ public class EventManager implements IManager<Event> {
         if (!bossBar.getPlayers().contains(player)) {
             bossBar.addPlayer(player);
         }
-        bossBar.setProgress((60.0d - eventHappening.timer) * 100.0d / 60.0d);
     }
 
     public void startEvent() {
@@ -64,7 +63,7 @@ public class EventManager implements IManager<Event> {
         setHappening(true); // This change will be detected by the EventRunnable
 
         String displayName = eventHappening.getDisplayName();
-        String bossBarText = ColorUtil.toColor("%hex(#0080FF)Ongoing event: " + displayName + "%hex(#0080FF)!");
+        String bossBarText = ColorUtil.toColor("%hex(#55C1FF)Ongoing event: " + displayName + "%hex(#55C1FF)!");
         bossBar = Bukkit.createBossBar(bossBarText, BarColor.BLUE, BarStyle.SOLID);
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             updateBossBar(onlinePlayer);
