@@ -74,4 +74,9 @@ public class Sidebar implements IColorable {
     public static Sidebar getByPlayer(Player player) {
         return PLAYER_SIDEBAR_MAP.get(player.getUniqueId());
     }
+
+    public void destroy(Player player) {
+        PLAYER_SIDEBAR_MAP.remove(player.getUniqueId());
+        player.setScoreboard(SCOREBOARD_MANAGER.getNewScoreboard());
+    }
 }

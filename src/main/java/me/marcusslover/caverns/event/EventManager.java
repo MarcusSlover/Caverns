@@ -30,6 +30,15 @@ public class EventManager implements IManager<Event> {
         this.happening = false;
     }
 
+    public static String getSidebarText() {
+        EventManager instance = getInstance();
+        if (instance.isHappening()) {
+            return instance.eventHappening.getDisplayName();
+        }
+
+        return "%hex(#FF99FF)None";
+    }
+
     @Override
     public void initialize() {
         this.register(new MoreDrops());
